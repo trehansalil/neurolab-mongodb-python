@@ -1,0 +1,1 @@
+python run.py "$1" "$2" > logs/summary_"$1"_"$2".log 2>&1&

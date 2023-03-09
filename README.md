@@ -8,8 +8,8 @@
 pip install -r requirements.txt
 ```
 
-### Step 2 - Run main.py file
+### Step 2 - Run run.sh file
 
 ```bash
-python main.py
+bash run.sh switzerland online
 ```
