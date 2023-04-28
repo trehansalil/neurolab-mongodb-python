@@ -1,14 +1,8 @@
-# neurolab-mongo-python
+# Medspa Project
 
-![image](https://user-images.githubusercontent.com/57321948/196933065-4b16c235-f3b9-4391-9cfe-4affcec87c35.png)
+![image](https://static.wixstatic.com/media/be59c3_eed6952da2eb49a58bafab2a5ef7d0df~mv2.jpg/v1/fill/w_118,h_116,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/Salil-Verse-Logo3.jpg)
 
-### Step 1 - Install the requirements
-
-```bash
-pip install -r requirements.txt
-```
-
-### Step 2 - Run main.py file
+### Step 1 - Run main.py file
 
 ```bash
 python main.py
