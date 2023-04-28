@@ -6,6 +6,7 @@ import string
 # import streamlit as st
 import base64
 import configparser
+import json
 
 from datetime import date, datetime
 from dateutil.parser import parse
@@ -26,7 +27,7 @@ mongo_db_coll_procedure_risk = config_parser.get('mongo_config', 'mongo_db_coll_
 mongo_db_coll_sun_sensitivity = config_parser.get('mongo_config', 'mongo_db_coll_sun_sensitivity')
 mongo_db_coll_hq = config_parser.get('mongo_config', 'mongo_db_coll_hq')
 mongo_db_coll_retinol = config_parser.get('mongo_config', 'mongo_db_coll_retinol')
-drop_coll_bool = config_parser.getboolean('mongo_config', 'drop_coll_bool')
+backup_coll = config_parser.getboolean('mongo_config', 'backup_coll')
 
 # All file inputs
 g_sheets_url = config_parser.get('input_files', 'g_sheets_url')
@@ -53,11 +54,17 @@ def variable_extractor(var_name='var1', var_type='string'):
             elif var_type=='array':
                 var = arg.split("=")[1].strip()
                 var = [i.strip() for i in var.split(',')]
+            elif var_type=='dict':
+                var = arg.split("=")[1].strip()
+                var = json.loads(var)
+            elif var_type=='bool':
+                var = arg.split("=")[1].strip().lower()
+                var = True if var=='true' else (False if var=='false' else None)
             else:
                 var = int(arg.split("=")[1])
 
     if var is not None:
         print(f"{var_name} is:", var)
     else:
-        print(f"{var_name} not provided")
+        print(f"{var_name} not provided/improper format")
     return var
