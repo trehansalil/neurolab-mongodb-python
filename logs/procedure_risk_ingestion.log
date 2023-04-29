@@ -1,19 +1,0 @@
-sheet_name is: procedure_risk
-update_db is: True
-  0%|          | 0/25 [00:00<?, ?it/s]  0%|          | 0/25 [00:01<?, ?it/s]
-Traceback (most recent call last):
-  File "ingestion.py", line 64, in <module>
-    update_collection(coll=coll, backup_coll=backup_coll, coll_backup=coll_backup, update_db=update_db)
-  File "ingestion.py", line 34, in update_collection
-    coll_backup.insert_many(coll.find())
-  File "/config/.local/lib/python3.8/site-packages/pymongo/_csot.py", line 105, in csot_wrapper
-    return func(self, *args, **kwargs)
-  File "/config/.local/lib/python3.8/site-packages/pymongo/collection.py", line 714, in insert_many
-    blk.execute(write_concern, session=session)
-  File "/config/.local/lib/python3.8/site-packages/pymongo/bulk.py", line 513, in execute
-    return self.execute_command(generator, write_concern, session)
-  File "/config/.local/lib/python3.8/site-packages/pymongo/bulk.py", line 394, in execute_command
-    _raise_bulk_write_error(full_result)
-  File "/config/.local/lib/python3.8/site-packages/pymongo/bulk.py", line 136, in _raise_bulk_write_error
-    raise BulkWriteError(full_result)
-pymongo.errors.BulkWriteError: batch op errors occurred, full error: {'writeErrors': [{'index': 0, 'code': 11000, 'errmsg': "E11000 duplicate key error collection: GOOGLE_SHEET_DATA_BACKUP.PROCEDURE RISK INPUTS index: _id_ dup key: { _id: ObjectId('644a56177512b9b80e13f8e4') }", 'keyPattern': {'_id': 1}, 'keyValue': {'_id': ObjectId('644a56177512b9b80e13f8e4')}, 'op': {'_id': ObjectId('644a56177512b9b80e13f8e4'), 'Modality': 'Facial', 'PIH Risk (0-110)': 0, 'CIT Degree (15-100)': 15, 'LHR (0-100)': 0, 'Frekles (0-100)': 0, 'Melasma': 0, 'created_on': datetime.datetime(2023, 4, 27, 16, 31, 41, 172000), 'updated_on': datetime.datetime(2023, 4, 27, 16, 31, 41, 172000), 'release': 1, 'version': 1}}], 'writeConcernErrors': [], 'nInserted': 0, 'nUpserted': 0, 'nMatched': 0, 'nModified': 0, 'nRemoved': 0, 'upserted': []}

@@ -58,10 +58,16 @@ def update_collection(coll, backup_coll, coll_backup, update_db):
     coll.insert_one(i)
 
 j = 1
+import pymongo
+max_release = None
 for i in tqdm(data[:-1]):
+
+    i['created_on'] = datetime.now()
+    i['updated_on'] = datetime.now()
+
     if 'coll' in locals():
+        # print(i)
         if j==1:
-            import pymongo
             if coll.count_documents({})>0:
                 if backup_coll:
                     coll_backup.insert_many(coll.find())
@@ -72,49 +78,36 @@ for i in tqdm(data[:-1]):
                 if update_db:
                     # updating records: new version, same release
                     i['release'] = max_release
-                    i['version'] = max_version+1                       
-                    i['updated_on'] = datetime.now()
+                    i['version'] = max_version+1
+
                 else:
                     # inserting new records: version = 1, new release
-                    i['created_on'] = datetime.now()
-                    i['updated_on'] = datetime.now()
                     i['release'] = max_release+1
                     i['version'] = 1
                 coll.drop()                
                 
             else:
-                i['created_on'] = datetime.now()
-                i['updated_on'] = datetime.now()
                 i['release'] = 1
                 i['version'] = 1
 
             coll.insert_one(i)
             j+=1
         else:
-            backup_coll = False
-            import pymongo
-            if coll.count_documents({})>0:
-                if backup_coll:
-                    coll_backup.insert_many(coll.find())
+            if max_release is not None:
 
                 if update_db:
                     # updating records: new version, same release
                     i['release'] = max_release
-                    i['version'] = max_version+1                       
-                    i['updated_on'] = datetime.now()
+                    i['version'] = max_version+1
+
                 else:
-                    # inserting new records: version= 1, new release
-                    i['created_on'] = datetime.now()
-                    i['updated_on'] = datetime.now()
+                    # inserting new records: version = 1, new release
                     i['release'] = max_release+1
-                    i['version'] = 1    
-                coll.drop()                
+                    i['version'] = 1
+                # coll.drop()                
                 
             else:
-                i['created_on'] = datetime.now()
-                i['updated_on'] = datetime.now()
                 i['release'] = 1
-                i['version'] = 1     
-
+                i['version'] = 1
             coll.insert_one(i)
             j+=1
